@@ -1,0 +1,5 @@
+LEVEL_FILE:res/levels/level2.txt
+FILE_TYPE:LEVEL
+NUM_OF_CARDS:1
+STARTING_CARDS:1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0-0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1-1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0-0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0
+NEXT_LEVEL:res/levels/level3.txt
