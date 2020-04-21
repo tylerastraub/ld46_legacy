@@ -14,7 +14,7 @@ public:
 	void set_position(float x, float y);
 	void change_position(float dx, float dy);
 	void draw_punchholes(sf::RenderWindow* window);
-	void check_punchhole_collision(float mouseX, float mouseY);
+	bool check_punchhole_collision(float mouseX, float mouseY);
 	void set_minimode(bool mode);
 	void set_mousepos(float mouseX, float mouseY);
 	void set_punchholes(std::vector<int> card);

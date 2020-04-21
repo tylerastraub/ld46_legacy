@@ -38,7 +38,6 @@ void Deck::move_card_to_top(int card_number)
 Card* Deck::get_top_of_deck()
 {
 	if (_cards.size() == 0) {
-		std::cout << "Deck is empty, returning nullptr" << std::endl;
 		return nullptr;
 	}
 

@@ -2,6 +2,8 @@
 
 CardState::~CardState()
 {
+	_audio_player->stop_music();
+
 	delete _deck;
 	delete _background;
 	delete _audio_player;
@@ -9,8 +11,8 @@ CardState::~CardState()
 
 void CardState::init()
 {
-	_audio_player = new AudioPlayer();
-	_background = new Background();
+	_audio_player = new AudioPlayer(get_audio_buffers());
+	_background = new Background(get_audio_buffers());
 	_background_color = sf::Color(40, 40, 40);
 
 	if (!_card_font.loadFromFile("res/fonts/lucidia_typewriter.ttf")) {
@@ -202,19 +204,23 @@ void CardState::check_collisions()
 			&& _mouse_rightclick
 			&& _selection_released) {
 			_selected_card = deck[i];
-			_selected_card->check_punchhole_collision(_mouseX, _mouseY);
+			if (_selected_card->check_punchhole_collision(_mouseX, _mouseY)) {
+				_audio_player->play_sound("res/sound/hole_punch.wav", 100.f);
+			}
 			_deck->move_card_to_top(std::stoi(_selected_card->get_card_number()));
 			_selection_released = false;
 			break;
 		}
 	}
 
-	if (is_rect_colliding(*_selected_card->get_card_rect(), _card_insert_rect) &&
-		_inserted_card == nullptr) {
-		_info_text.setString("insert card into slot");
-	}
-	else if(_inserted_card == nullptr) {
-		_info_text.setString("");
+	if (_mouse_leftclick) {
+		if (is_rect_colliding(*_selected_card->get_card_rect(), _card_insert_rect) &&
+			_inserted_card == nullptr) {
+			_info_text.setString("insert card into slot");
+		}
+		else if (_inserted_card == nullptr) {
+			_info_text.setString("");
+		}
 	}
 }
 

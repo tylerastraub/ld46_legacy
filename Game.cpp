@@ -1,7 +1,7 @@
 #include "Game.h"
 
 Game::Game() {
-	_window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Keep it alive", sf::Style::Fullscreen);
+	_window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Keep it alive", sf::Style::Close);
 	_window->setFramerateLimit(144);
 	_window->setVerticalSyncEnabled(false);
 	_window->setMouseCursorGrabbed(true);
@@ -12,6 +12,8 @@ Game::Game() {
 	float last_time = 0;
 	int fps = 0;
 	float fps_display_delay = 0.1;
+
+	load_audio_buffers();
 
 	_next_state = new InstructionState();
 
@@ -29,6 +31,7 @@ Game::Game() {
 				_current_state->get_next_level() != "") {
 				_current_state->set_level(_current_state->get_next_level());
 			}
+			_current_state->set_audio_buffers(_audio_buffers);
 			_current_state->init();
 		}
 
@@ -96,6 +99,9 @@ Game::~Game() {
 	if (_next_state) {
 		delete _next_state;
 	}
+	for (auto it : _audio_buffers) {
+		delete it.second;
+	}
 }
 
 void Game::change_state(State * next_state)
@@ -106,4 +112,33 @@ void Game::change_state(State * next_state)
 void Game::exit()
 {
 	_exit_flag = true;
+}
+
+void Game::load_audio_buffers()
+{
+	std::string filepath = "res/sound/";
+
+	_audio_buffers[filepath + "card_insert.wav"] = new sf::SoundBuffer();
+	if (!_audio_buffers[filepath + "card_insert.wav"]
+		->loadFromFile(filepath + "card_insert.wav")) {
+		std::cout << "Failed to load file " << filepath << "card_insert.wav" << std::endl;
+	}
+
+	_audio_buffers[filepath + "computer_fan.wav"] = new sf::SoundBuffer();
+	if (!_audio_buffers[filepath + "computer_fan.wav"]
+		->loadFromFile(filepath + "computer_fan.wav")) {
+		std::cout << "Failed to load file " << filepath << "computer_fan.wav" << std::endl;
+	}
+
+	_audio_buffers[filepath + "hole_punch.wav"] = new sf::SoundBuffer();
+	if (!_audio_buffers[filepath + "hole_punch.wav"]
+		->loadFromFile(filepath + "hole_punch.wav")) {
+		std::cout << "Failed to load file " << filepath << "hole_punch.wav" << std::endl;
+	}
+
+	_audio_buffers[filepath + "power_down.wav"] = new sf::SoundBuffer();
+	if (!_audio_buffers[filepath + "power_down.wav"]
+		->loadFromFile(filepath + "power_down.wav")) {
+		std::cout << "Failed to load file " << filepath << "power_down.wav" << std::endl;
+	}
 }

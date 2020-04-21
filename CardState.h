@@ -36,8 +36,8 @@ private:
 	float _default_tick_count = 1.f / 144.f; // 1.f / number of ticks per second
 	float _current_tick_count = _default_tick_count;
 
-	Deck* _deck;
-	Card* _selected_card;
+	Deck* _deck = nullptr;
+	Card* _selected_card = nullptr;
 	Card* _inserted_card = nullptr;
 	sf::Font _card_font;
 	std::vector<Card*> _accepted_cards;

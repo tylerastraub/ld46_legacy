@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "AudioPlayer.h"
 
 #include <cmath>
 
@@ -15,7 +14,7 @@ public:
 	void set_scale(float scale);
 	
 	sf::RectangleShape* get_rect();
-	void punch(bool make_sound, bool punched_by_user);
+	bool punch(bool make_sound, bool punched_by_user);
 
 	bool is_punched();
 
@@ -26,7 +25,5 @@ private:
 	float _width = 8;
 	float _height = 10;
 	float _scale = 2.f;
-
-	AudioPlayer* _audio_player;
 };
 

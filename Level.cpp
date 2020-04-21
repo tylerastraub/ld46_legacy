@@ -56,8 +56,6 @@ bool Level::cards_are_correct(std::vector<Card*> cards)
 						consecutive_one_horizontal = 0;
 						++balance_horizontal;
 						if (consecutive_zero_horizontal > 2) {
-							std::cout << "too many zeros on row "
-								<< i << " column " << j << std::endl;
 							return false;
 						}
 						break;
@@ -66,8 +64,6 @@ bool Level::cards_are_correct(std::vector<Card*> cards)
 						consecutive_zero_horizontal = 0;
 						--balance_horizontal;
 						if (consecutive_one_horizontal > 2) {
-							std::cout << "too many ones on row "
-								<< i << std::endl;
 							return false;
 						}
 						break;
@@ -75,8 +71,6 @@ bool Level::cards_are_correct(std::vector<Card*> cards)
 			}
 			
 			if (balance_horizontal != 0) {
-				std::cout << "horizontal imbalance on line " << i << std::endl;
-				std::cout << "horizontal balance: " << balance_horizontal << std::endl;
 				return false;
 			}
 		}
@@ -93,8 +87,6 @@ bool Level::cards_are_correct(std::vector<Card*> cards)
 						consecutive_one_vertical = 0;
 						++balance_vertical;
 						if (consecutive_zero_vertical > 2) {
-							std::cout << "too many zeros on column "
-								<< i << std::endl;
 							return false;
 						}
 						break;
@@ -103,16 +95,12 @@ bool Level::cards_are_correct(std::vector<Card*> cards)
 						consecutive_zero_vertical = 0;
 						--balance_vertical;
 						if (consecutive_one_vertical > 2) {
-							std::cout << "too many ones on column "
-								<< i << std::endl;
 							return false;
 						}
 						break;
 				}
 			}
 			if (balance_vertical != 0) {
-				std::cout << "vertical imbalance on column " << i << std::endl;
-				std::cout << "vertical balance: " << balance_vertical << std::endl;
 				return false;
 			}
 		}

@@ -6,13 +6,10 @@ PunchHole::PunchHole() {
 	_hole_rect->setOutlineThickness(2);
 	_hole_rect->setOutlineColor(sf::Color(45, 45, 45));
 	_hole_rect->setFillColor(sf::Color(0, 0, 0, 0));
-
-	_audio_player = new AudioPlayer();
 }
 
 PunchHole::~PunchHole() {
 	delete _hole_rect;
-	delete _audio_player;
 }
 
 void PunchHole::set_position(float x, float y)
@@ -32,7 +29,9 @@ sf::RectangleShape* PunchHole::get_rect()
 	return _hole_rect;
 }
 
-void PunchHole::punch(bool make_sound, bool punched_by_user)
+// returns true if we want to make a sound
+// having 80 audio players per punchhole is major lagger
+bool PunchHole::punch(bool make_sound, bool punched_by_user)
 {
 	if (!_punched) {
 		_punched = 2;
@@ -45,17 +44,23 @@ void PunchHole::punch(bool make_sound, bool punched_by_user)
 		}
 		
 		if (make_sound) {
-			_audio_player->play_music("res/sound/hole_punch.wav", 100.f, false);
+			return true;
 		}
+
+		return false;
 	}
 	else if (_user_punched) {
 		_punched = false;
 		_hole_rect->setFillColor(sf::Color(0, 0, 0, 0));
 
 		if (make_sound) {
-			_audio_player->play_music("res/sound/hole_punch.wav", 100.f, false);
+			return true;
 		}
+
+		return false;
 	}
+
+	return false;
 }
 
 bool PunchHole::is_punched()

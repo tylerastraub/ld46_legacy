@@ -1,6 +1,6 @@
 #include "Background.h"
 
-Background::Background()
+Background::Background(std::map<std::string, sf::SoundBuffer*> audio_buffers)
 {
 	if (!_computer_texture.loadFromFile(_computer_filepath)) {
 		std::cout << "Failed to load file from " << _computer_filepath
@@ -36,15 +36,7 @@ Background::Background()
 	_table_sprite.setPosition(0, 120);
 	_table_sprite.setTexture(_table_texture);
 
-	if (!_right_background_texture.loadFromFile(_right_background_filepath)) {
-		std::cout << "Failed to load file from " << _right_background_filepath
-			<< std::endl;
-	}
-
-	_right_background_sprite.setPosition(680, 0);
-	_right_background_sprite.setTexture(_right_background_texture);
-
-	_audio_player = new AudioPlayer;
+	_audio_player = new AudioPlayer(audio_buffers);
 	_audio_player->play_music("res/sound/computer_fan.wav", 70.f, true);
 }
 

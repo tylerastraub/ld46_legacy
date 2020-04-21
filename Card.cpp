@@ -67,7 +67,8 @@ void Card::draw_punchholes(sf::RenderWindow * window)
 	}
 }
 
-void Card::check_punchhole_collision(float mouseX, float mouseY)
+// return true if we want punchhole sound to occur
+bool Card::check_punchhole_collision(float mouseX, float mouseY)
 {
 	if (!_minimode) {
 		for (int i = 0; i < _punchholes_width; ++i) {
@@ -77,13 +78,15 @@ void Card::check_punchhole_collision(float mouseX, float mouseY)
 					mouseX < rect->getPosition().x + rect->getGlobalBounds().width &&
 					mouseY >= rect->getPosition().y &&
 					mouseY < rect->getPosition().y + rect->getGlobalBounds().height) {
-					_punchholes[i][j]->punch(true, true);
-					// impossible to punch two holes at once so we can get out of here
-					return;
+					return _punchholes[i][j]->punch(true, true);
 				}
 			}
 		}
+
+		return false;
 	}
+
+	return false;
 }
 
 void Card::set_minimode(bool mode)

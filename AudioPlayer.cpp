@@ -1,15 +1,23 @@
 #include "AudioPlayer.h"
 
+AudioPlayer::AudioPlayer(std::map<std::string, sf::SoundBuffer*> sounds)
+{
+	_sounds = sounds;
+}
+
+AudioPlayer::~AudioPlayer()
+{
+	_current_song.stop();
+}
+
 void AudioPlayer::play_sound(std::string file, float vol) {
-	sf::SoundBuffer buffer;
-	sf::Sound sound;
-	if (!buffer.loadFromFile(file)) {
-		std::cout << "Failed to load file " << file << std::endl;
+	if (_sounds.count(file)) {
+		_sound.setBuffer(*_sounds[file]);
+		_sound.setVolume(vol);
+		_sound.play();
 	}
 	else {
-		sound.setBuffer(buffer);
-		sound.setVolume(vol);
-		sound.play();
+		std::cout << "Sound does not exist: " << file << std::endl;
 	}
 }
 

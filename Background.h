@@ -8,7 +8,7 @@
 class Background
 {
 public:
-	Background();
+	Background(std::map<std::string, sf::SoundBuffer*> audio_buffers);
 	~Background();
 
 	void draw_background(sf::RenderWindow* window);
@@ -27,12 +27,10 @@ private:
 	sf::Texture _table_texture;
 	sf::Texture _computer_texture;
 	sf::Texture _tape_texture;
-	sf::Texture _right_background_texture;
 
 	std::string _table_filepath = "res/table.png";
 	std::string _computer_filepath = "res/computer.png";
 	std::string _tape_filepath = "res/tape_wheel.png";
-	std::string _right_background_filepath = "res/right_background.png";
 
 	AudioPlayer* _audio_player;
 };
